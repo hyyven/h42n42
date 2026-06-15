@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/opt/app
+      - ./eliom_Makefiles/Makefile:/opt/app/Makefile    #remplace mon Makefile par celui de /eliom_Makefiles
+    environment:
+      - HOME=/home/opam
+      - OCAMLRUNPARAM=b     # affiche les logs si erreur
+    stop_signal: SIGINT     # tente un sigint avant de kill, askip c'est mieux pour ocaml que SIGTERM
+    stop_grace_period: 1s   # attend qu'une seconde avant de kill
+

@@ -1,0 +1,8 @@
+README.md
+LICENSE
+*subject*
+.gitignore
+.dockerignore
+.git
+_build
+local

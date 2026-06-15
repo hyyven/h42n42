@@ -1,0 +1,10 @@
+FROM ocaml/opam:debian-ocaml-5.2
+
+RUN sudo apt-get -y update && sudo apt-get -y install nodejs \
+	npm zlib1g-dev libgmp-dev pkg-config libsqlite3-dev
+
+RUN opam install -y ocsigen-start ocsipersist-sqlite-config
+
+WORKDIR /main
+
+CMD ["eliom-distillery", "-name", "h42n42", "-template", "app.exe", "-y"]
