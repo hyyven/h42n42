@@ -39,9 +39,19 @@ DIST_FILES = $(ELIOMSTATICDIR)/$(PROJECT_NAME).js $(LIBDIR)/$(PROJECT_NAME).cma
 
 .PHONY: test.byte test.opt staticfiles
 
-test.byte:: byte | $(addprefix $(TEST_PREFIX),$(DIST_DIRS)) staticfiles
+$(PROJECT_NAME).conf: $(PROJECT_NAME).conf.in eliom_Makefiles/Makefile.options
+	sed -e "s|%%PORT%%|$(TEST_PORT)|g" \
+	    -e "s|%%LOGDIR%%|$(TEST_PREFIX)$(LOGDIR)|g" \
+	    -e "s|%%DATADIR%%|$(TEST_PREFIX)$(DATADIR)|g" \
+	    -e "s|%%FILESDIR%%|$(TEST_PREFIX)$(FILESDIR)|g" \
+	    -e "s|%%CMDPIPE%%|$(TEST_PREFIX)$(CMDPIPE)|g" \
+	    -e "s|%%LIBDIR%%|_build/default/src|g" \
+	    -e "s|%%PROJECT_NAME%%|$(PROJECT_NAME)|g" \
+	    $< > $@
+
+test.byte:: byte $(PROJECT_NAME).conf | $(addprefix $(TEST_PREFIX),$(DIST_DIRS)) staticfiles
 	@echo "==== The website is available at http://localhost:$(TEST_PORT) ===="
-	dune exec src/$(PROJECT_NAME)_main.bc
+	ocsigenserver -v -c $(PROJECT_NAME).conf
 test.opt:: opt | $(addprefix $(TEST_PREFIX),$(DIST_DIRS)) staticfiles
 	@echo "==== The website is available at http://localhost:$(TEST_PORT) ===="
 	dune exec src/$(PROJECT_NAME)_main.exe

@@ -8,7 +8,7 @@
 # 	docker run --rm --entrypoint /bin/sh -v "$$(pwd):/tmp" -w /tmp -u root h42n42-init -c "rm -rf h42n42"
 
 BIN = _build/default/src/h42n42_main.bc
-SRCS = $(shell find src -type f)
+SRCS = $(shell find src -type f)		# obligatoirement un fichier qui modifie le binaire sinon ca relink
 
 all: $(BIN)
 
@@ -31,4 +31,3 @@ stop:
 
 debug:
 	docker compose up
-

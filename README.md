@@ -55,6 +55,6 @@ Here's some help on how to work with this basic distillery project:
 
 Todo
 ----------------
- - [ ] faire en sorte que `make` recompile et relance le docker si changement dans `/src`
- - [ ] utiliser un fichier en .conf.in pour config le server ocsigen
+ - [x] faire en sorte que `make` recompile et relance le docker si changement dans `/src`
+ - [x] utiliser un fichier en .conf.in pour config le server ocsigen
  - [ ] faire un vrai readme

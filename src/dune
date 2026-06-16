@@ -32,6 +32,7 @@
   (native exe))
  (libraries
   eliom.server
+  ocsigenserver
   ocsipersist-sqlite
   ocsigenserver.ext.staticmod
   h42n42)
