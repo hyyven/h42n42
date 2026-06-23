@@ -9,14 +9,17 @@
 
 BIN = _build/default/src/h42n42_main.bc
 SRCS = $(shell find src -type f)		# obligatoirement un fichier qui modifie le binaire sinon ca relink
+CSS = static/css/h42n42.css
+LOCAL_CSS = local/var/www/h42n42/css/h42n42.css
 
-all: $(BIN)
-
-run: $(BIN)
-	docker compose up -d
+all: $(BIN) $(LOCAL_CSS)
 
 $(BIN): $(SRCS) Dockerfile docker-compose.yml
-	docker compose up -d --build	
+	docker compose up -d --build
+
+$(LOCAL_CSS): $(CSS)
+	@mkdir -p local/var/www/h42n42/css
+	cp $(CSS) $(LOCAL_CSS)
 
 clean:
 	docker compose run --rm app sh -c 'eval $$(opam env) && make clean'

@@ -16,3 +16,5 @@ _build
 *subject*
 h42n42.conf
 ocsidb
+package-lock.json
+package.json

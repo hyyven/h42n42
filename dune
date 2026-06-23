@@ -57,7 +57,7 @@
     use-js-string
     --no-source-map))
   ; source maps are slow...
-  (libraries eliom.client))
+  (libraries eliom.client js_of_ocaml-lwt))
  (dynamic_include ../gen/dune.client))
 
 ; Main rule:
